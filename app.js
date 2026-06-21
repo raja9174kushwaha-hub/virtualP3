@@ -534,7 +534,10 @@ function getAuthErrorMessage(error) {
         'auth/weak-password': 'Use a password with at least 6 characters.',
         'auth/unauthorized-domain': 'This domain is not authorized in Firebase Authentication. Add your Cloud Run domain in Firebase Console > Authentication > Settings > Authorized domains.',
         'auth/popup-blocked': 'The sign-in popup was blocked. Allow popups or try again.',
-        'auth/popup-closed-by-user': 'The Google sign-in window was closed before completion.'
+        'auth/popup-closed-by-user': 'The Google sign-in window was closed before completion.',
+        'auth/configuration-not-found': 'Firebase Authentication is not fully initialized. Enable Authentication in the Firebase Console.',
+        'auth/internal-error': 'Authentication internal error. Please verify that the Email/Password sign-in provider is enabled in your Firebase Console (Authentication > Sign-in method).',
+        'auth/operation-not-allowed': 'Email/Password sign-in is disabled. Enable it in your Firebase Console (Authentication > Sign-in method).'
     };
     return messages[code] || (error && error.message) || 'Authentication failed. Please try again.';
 }
