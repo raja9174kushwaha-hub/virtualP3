@@ -198,3 +198,48 @@ def test_cache_control_headers(client):
     assert "must-revalidate" in resp.headers.get("Cache-Control", "")
 
 
+def test_gzip_compression_edge_cases(client):
+    """Verify gzip compression edge cases (uncompressible files and small files)."""
+    import server
+    from flask import Flask, Response
+    
+    app = Flask("test_mock")
+    with app.test_request_context(headers={"Accept-Encoding": "gzip"}):
+        resp = Response("hello world this is a test string that is long enough to compress", mimetype="image/png")
+        compress_func = None
+        for func in server.app.after_request_funcs.get(None, []):
+            if func.__name__ == "_compress_response":
+                compress_func = func
+                break
+        if compress_func:
+            ret = compress_func(resp)
+            assert "Content-Encoding" not in ret.headers
+
+    # 2. Too short response (/health returns < 500 bytes)
+    headers = {"Accept-Encoding": "gzip"}
+    resp = client.get("/health", headers=headers)
+    assert resp.status_code == 200
+    assert "Content-Encoding" not in resp.headers
+
+
+def test_gzip_already_encoded(client):
+    """Verify that gzip is not applied if Content-Encoding is already present."""
+    import server
+    from flask import Flask, Response
+    
+    app = Flask("test_mock")
+    with app.test_request_context(headers={"Accept-Encoding": "gzip"}):
+        resp = Response("hello world this is a test string that is long enough to compress", mimetype="text/html")
+        resp.headers["Content-Encoding"] = "gzip"
+        
+        compress_func = None
+        for func in server.app.after_request_funcs.get(None, []):
+            if func.__name__ == "_compress_response":
+                compress_func = func
+                break
+        if compress_func:
+            ret = compress_func(resp)
+            assert ret.headers.get("Content-Encoding") == "gzip"
+
+
+

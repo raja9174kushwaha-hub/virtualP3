@@ -125,6 +125,7 @@ def create_app() -> Flask:
         )
         resp.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin")
         resp.headers.setdefault("Cross-Origin-Resource-Policy", "same-origin")
+        resp.headers.setdefault("X-XSS-Protection", "1; mode=block")
         return resp
 
     @flask_app.after_request
@@ -250,7 +251,7 @@ def create_app() -> Flask:
 app = create_app()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     port = int(os.getenv("PORT", "8000"))
     debug = os.getenv("FLASK_DEBUG", "").lower() in {"1", "true", "yes"}
     app.logger.info("EcoStep server starting on http://0.0.0.0:%d", port)
