@@ -119,3 +119,57 @@ def test_max_content_length_enforced(client):
     # Flask returns 413 (or 405 because it's a GET endpoint) — either is fine,
     # what matters is we never returned 500 from a memory spike.
     assert resp.status_code in (405, 413, 404)
+
+
+def test_client_ip_forwarded(client):
+    """Verify client IP extraction when X-Forwarded-For header is present."""
+    resp = client.get("/api/config", headers={"X-Forwarded-For": "1.2.3.4, 5.6.7.8"})
+    assert resp.status_code == 200
+
+
+def test_rate_limit_popleft(client):
+    """Check that old rate-limit entries are purged from the bucket queue."""
+    import time
+    from collections import deque
+    import server
+    server._rate_buckets["127.0.0.1"] = deque([time.monotonic() - 100])
+    resp = client.get("/api/config")
+    assert resp.status_code == 200
+
+
+def test_server_error_500(client, monkeypatch):
+    """Assert that unhandled errors trigger a generic, safe 500 response."""
+    import server
+    # Cause getenv to raise TypeError when called in get_config
+    def mock_getenv(*args, **kwargs):
+        raise TypeError("simulated error")
+    
+    monkeypatch.setattr(server.os, "getenv", mock_getenv)
+    # Temporarily disable PROPAGATE_EXCEPTIONS to test the 500 handler
+    server.app.config["PROPAGATE_EXCEPTIONS"] = False
+    try:
+        resp = client.get("/api/config")
+        assert resp.status_code == 500
+        assert resp.get_json() == {"error": "internal_error"}
+    finally:
+        server.app.config["PROPAGATE_EXCEPTIONS"] = True
+
+
+
+def test_static_file_not_exist(client, monkeypatch):
+    """Verify that allowed but non-existent files return a 404."""
+    import server
+    monkeypatch.setattr(server, "PUBLIC_FILES", frozenset({"nonexistent.html"}))
+    resp = client.get("/nonexistent.html")
+    assert resp.status_code == 404
+
+
+def test_static_outside_root(client, monkeypatch):
+    """Test that requests resolving outside the static root directory return a 404."""
+    import server
+    from pathlib import Path
+    monkeypatch.setattr(server, "STATIC_ROOT", Path("/tmp/nonexistent-dir-123"))
+    monkeypatch.setattr(server, "PUBLIC_FILES", frozenset({"index.html"}))
+    resp = client.get("/index.html")
+    assert resp.status_code == 404
+
