@@ -1,4 +1,5 @@
 """Pytest fixtures for the EcoStep Flask server tests."""
+
 from __future__ import annotations
 
 import sys
@@ -15,12 +16,17 @@ def client(monkeypatch):
     """A Flask test client with a clean rate-limit bucket per test."""
     # Disable Firebase config so /api/config returns the 'local' branch.
     for key in (
-        "FIREBASE_API_KEY", "FIREBASE_AUTH_DOMAIN", "FIREBASE_PROJECT_ID",
-        "FIREBASE_STORAGE_BUCKET", "FIREBASE_MESSAGING_SENDER_ID", "FIREBASE_APP_ID",
+        "FIREBASE_API_KEY",
+        "FIREBASE_AUTH_DOMAIN",
+        "FIREBASE_PROJECT_ID",
+        "FIREBASE_STORAGE_BUCKET",
+        "FIREBASE_MESSAGING_SENDER_ID",
+        "FIREBASE_APP_ID",
     ):
         monkeypatch.delenv(key, raising=False)
 
     import server  # imported after env vars are cleared
+
     server._rate_buckets.clear()
     server.app.testing = True
     with server.app.test_client() as test_client:
@@ -36,6 +42,7 @@ def firebase_client(monkeypatch):
 
     import importlib
     import server
+
     importlib.reload(server)  # rebuild app with the new env
 
     server._rate_buckets.clear()

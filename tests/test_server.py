@@ -7,6 +7,7 @@ Covers:
  - Rate limiting on /api/*
  - Health check
 """
+
 from __future__ import annotations
 
 
@@ -97,6 +98,7 @@ def test_config_ignores_placeholder_values(monkeypatch, client):
 
 def test_rate_limit_returns_429(client):
     import server
+
     # Force the bucket to be one below the limit.
     for _ in range(server._RATE_LIMIT_MAX):
         client.get("/api/config")
@@ -132,6 +134,7 @@ def test_rate_limit_popleft(client):
     import time
     from collections import deque
     import server
+
     server._rate_buckets["127.0.0.1"] = deque([time.monotonic() - 100])
     resp = client.get("/api/config")
     assert resp.status_code == 200
@@ -140,10 +143,11 @@ def test_rate_limit_popleft(client):
 def test_server_error_500(client, monkeypatch):
     """Assert that unhandled errors trigger a generic, safe 500 response."""
     import server
+
     # Cause getenv to raise TypeError when called in get_config
     def mock_getenv(*args, **kwargs):
         raise TypeError("simulated error")
-    
+
     monkeypatch.setattr(server.os, "getenv", mock_getenv)
     # Temporarily disable PROPAGATE_EXCEPTIONS to test the 500 handler
     server.app.config["PROPAGATE_EXCEPTIONS"] = False
@@ -155,10 +159,10 @@ def test_server_error_500(client, monkeypatch):
         server.app.config["PROPAGATE_EXCEPTIONS"] = True
 
 
-
 def test_static_file_not_exist(client, monkeypatch):
     """Verify that allowed but non-existent files return a 404."""
     import server
+
     monkeypatch.setattr(server, "PUBLIC_FILES", frozenset({"nonexistent.html"}))
     resp = client.get("/nonexistent.html")
     assert resp.status_code == 404
@@ -168,6 +172,7 @@ def test_static_outside_root(client, monkeypatch):
     """Test that requests resolving outside the static root directory return a 404."""
     import server
     from pathlib import Path
+
     monkeypatch.setattr(server, "STATIC_ROOT", Path("/tmp/nonexistent-dir-123"))
     monkeypatch.setattr(server, "PUBLIC_FILES", frozenset({"index.html"}))
     resp = client.get("/index.html")
@@ -202,10 +207,13 @@ def test_gzip_compression_edge_cases(client):
     """Verify gzip compression edge cases (uncompressible files and small files)."""
     import server
     from flask import Flask, Response
-    
+
     app = Flask("test_mock")
     with app.test_request_context(headers={"Accept-Encoding": "gzip"}):
-        resp = Response("hello world this is a test string that is long enough to compress", mimetype="image/png")
+        resp = Response(
+            "hello world this is a test string that is long enough to compress",
+            mimetype="image/png",
+        )
         compress_func = None
         for func in server.app.after_request_funcs.get(None, []):
             if func.__name__ == "_compress_response":
@@ -226,12 +234,15 @@ def test_gzip_already_encoded(client):
     """Verify that gzip is not applied if Content-Encoding is already present."""
     import server
     from flask import Flask, Response
-    
+
     app = Flask("test_mock")
     with app.test_request_context(headers={"Accept-Encoding": "gzip"}):
-        resp = Response("hello world this is a test string that is long enough to compress", mimetype="text/html")
+        resp = Response(
+            "hello world this is a test string that is long enough to compress",
+            mimetype="text/html",
+        )
         resp.headers["Content-Encoding"] = "gzip"
-        
+
         compress_func = None
         for func in server.app.after_request_funcs.get(None, []):
             if func.__name__ == "_compress_response":
@@ -242,4 +253,13 @@ def test_gzip_already_encoded(client):
             assert ret.headers.get("Content-Encoding") == "gzip"
 
 
+def test_cache_control_headers_for_api(client):
+    """Verify that Cache-Control headers disable caching for API endpoints."""
+    resp = client.get("/api/config")
+    assert resp.status_code == 200
+    assert "no-store" in resp.headers.get("Cache-Control", "")
+    assert resp.headers.get("Pragma") == "no-cache"
 
+    resp = client.get("/health")
+    assert resp.status_code == 200
+    assert "no-store" in resp.headers.get("Cache-Control", "")

@@ -2089,6 +2089,7 @@ html.dark .profile-card-section {
     padding: 1.25rem;
     border-radius: var(--border-radius-sm);
 }
+.profile-avatar-wrapper {
     position: relative;
     width: 100px;
     height: 100px;

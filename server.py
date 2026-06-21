@@ -5,6 +5,7 @@ Serves the single-page client, exposes the Firebase web config at /api/config
 applies strong defense-in-depth headers, rate limiting, and a strict path
 allow-list so the static directory cannot leak secrets or escape its root.
 """
+
 from __future__ import annotations
 
 import gzip
@@ -29,21 +30,36 @@ BASE_DIR = Path(__file__).resolve().parent
 STATIC_ROOT = BASE_DIR
 
 # Files that must NEVER be served, even if a user requests them by name.
-DENYLIST = frozenset({
-    ".env", ".env.local", ".env.production",
-    "server.py", "Dockerfile", "requirements.txt",
-    "requirements-dev.txt",
-    ".gitignore", ".dockerignore",
-    "server.err.log", "server.log",
-    ".coverage", "TRDofvirtualEco.pdf",
-})
+DENYLIST = frozenset(
+    {
+        ".env",
+        ".env.local",
+        ".env.production",
+        "server.py",
+        "Dockerfile",
+        "requirements.txt",
+        "requirements-dev.txt",
+        ".gitignore",
+        ".dockerignore",
+        "server.err.log",
+        "server.log",
+        ".coverage",
+        "TRDofvirtualEco.pdf",
+    }
+)
 
 # Public assets the SPA is allowed to request. Anything outside this set is
 # rejected before touching the filesystem, which neutralises path-traversal.
-PUBLIC_FILES = frozenset({
-    "index.html", "style.css", "app.js",
-    "favicon.ico", "robots.txt", "manifest.webmanifest",
-})
+PUBLIC_FILES = frozenset(
+    {
+        "index.html",
+        "style.css",
+        "app.js",
+        "favicon.ico",
+        "robots.txt",
+        "manifest.webmanifest",
+    }
+)
 
 # Per-IP token bucket for /api/* endpoints.
 _RATE_LIMIT_WINDOW_S = 60
@@ -131,10 +147,21 @@ def create_app() -> Flask:
     @flask_app.after_request
     def _cache_control(resp: Response) -> Response:
         path = request.path
-        if path.endswith(".css") or path.endswith(".js") or path.endswith(".ico") or path.endswith(".webmanifest"):
+        if (
+            path.endswith(".css")
+            or path.endswith(".js")
+            or path.endswith(".ico")
+            or path.endswith(".webmanifest")
+        ):
             resp.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         elif path == "/" or path.endswith(".html"):
             resp.headers["Cache-Control"] = "public, max-age=0, must-revalidate"
+        elif path.startswith("/api/") or path in ("/health", "/healthz"):
+            resp.headers["Cache-Control"] = (
+                "no-store, no-cache, must-revalidate, max-age=0"
+            )
+            resp.headers["Pragma"] = "no-cache"
+            resp.headers["Expires"] = "0"
         return resp
 
     @flask_app.after_request
@@ -143,13 +170,15 @@ def create_app() -> Flask:
         if "gzip" not in accept_encoding.lower():
             return resp
 
-        content_type = resp.headers.get("Content-Type", "")
+        content_type = resp.headers.get("Content-Type", "").lower()
         is_compressible = (
-            "text/html" in content_type or
-            "text/css" in content_type or
-            "application/javascript" in content_type or
-            "application/json" in content_type or
-            "text/plain" in content_type
+            "text/html" in content_type
+            or "text/css" in content_type
+            or "javascript" in content_type
+            or "json" in content_type
+            or "text/plain" in content_type
+            or "xml" in content_type
+            or "svg" in content_type
         )
         if not is_compressible:
             return resp
@@ -165,18 +194,20 @@ def create_app() -> Flask:
             return resp
 
         gzip_buffer = io.BytesIO()
-        with gzip.GzipFile(mode="wb", compresslevel=6, fileobj=gzip_buffer) as gzip_file:
+        with gzip.GzipFile(
+            mode="wb", compresslevel=6, fileobj=gzip_buffer
+        ) as gzip_file:
             gzip_file.write(data)
 
         compressed_data = gzip_buffer.getvalue()
         resp.set_data(compressed_data)
         resp.headers["Content-Encoding"] = "gzip"
         resp.headers["Content-Length"] = str(len(compressed_data))
-        
+
         vary = resp.headers.get("Vary", "")
         if "Accept-Encoding" not in vary:
             resp.headers["Vary"] = f"{vary}, Accept-Encoding".strip(", ")
-            
+
         return resp
 
     @flask_app.errorhandler(404)
@@ -228,8 +259,10 @@ def create_app() -> Flask:
         api_key = os.getenv("FIREBASE_API_KEY", "")
         project_id = os.getenv("FIREBASE_PROJECT_ID", "")
 
-        is_valid = bool(api_key) and bool(project_id) and not (
-            api_key.startswith("YOUR_") or project_id.startswith("YOUR_")
+        is_valid = (
+            bool(api_key)
+            and bool(project_id)
+            and not (api_key.startswith("YOUR_") or project_id.startswith("YOUR_"))
         )
         config = {
             "apiKey": api_key,
@@ -239,11 +272,13 @@ def create_app() -> Flask:
             "messagingSenderId": os.getenv("FIREBASE_MESSAGING_SENDER_ID", ""),
             "appId": os.getenv("FIREBASE_APP_ID", ""),
         }
-        return jsonify({
-            "firebaseConfig": config if is_valid else None,
-            "mode": "firebase" if is_valid else "local",
-            "csrfToken": secrets.token_urlsafe(32),
-        })
+        return jsonify(
+            {
+                "firebaseConfig": config if is_valid else None,
+                "mode": "firebase" if is_valid else "local",
+                "csrfToken": secrets.token_urlsafe(32),
+            }
+        )
 
     return flask_app
 

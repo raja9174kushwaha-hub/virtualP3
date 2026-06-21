@@ -495,7 +495,8 @@ function syncProfileUI() {
     const emailEl = document.getElementById('profile-value-email');
     const habitsConsent = document.getElementById('profile-consent-habits');
     const leaderboardConsent = document.getElementById('profile-consent-leaderboard');
-    const archetypeSelect = document.getElementById('change-archetype-select');
+    const habitsArchetypeSelect = document.getElementById('habits-change-archetype-select');
+    const profileArchetypeSelect = document.getElementById('profile-change-archetype-select');
 
     if (displayNameEl) displayNameEl.textContent = displayName;
     if (profileNameEl) profileNameEl.textContent = displayName;
@@ -509,7 +510,8 @@ function syncProfileUI() {
     if (leaderboardConsent) leaderboardConsent.checked = !!state.consent.leaderboard;
     const emailConsent = document.getElementById('profile-consent-email');
     if (emailConsent) emailConsent.checked = !!state.consent.email;
-    if (archetypeSelect) archetypeSelect.value = state.archetype;
+    if (habitsArchetypeSelect) habitsArchetypeSelect.value = state.archetype;
+    if (profileArchetypeSelect) profileArchetypeSelect.value = state.archetype;
     const householdInput = document.getElementById('profile-input-household');
     if (householdInput) householdInput.value = state.householdSize || 1;
     const goalInput = document.getElementById('profile-input-goal');
@@ -1661,7 +1663,8 @@ function renderTrendChart() {
 // --- HABITS PAGE RENDERING ---
 function updateHabitsUI() {
     document.getElementById('habits-archetype-badge').textContent = state.archetype.toUpperCase();
-    document.getElementById('change-archetype-select').value = state.archetype;
+    const habitsSelect = document.getElementById('habits-change-archetype-select');
+    if (habitsSelect) habitsSelect.value = state.archetype;
     
     // Set analytics numbers
     document.getElementById('stats-total-actions').textContent = state.actionLog.length;

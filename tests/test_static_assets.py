@@ -1,4 +1,5 @@
 """Static asset checks — accessibility & security regressions caught at CI time."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -36,7 +37,7 @@ def test_html_has_skip_link():
 
 def test_html_main_landmark_has_id():
     assert 'id="main-content"' in INDEX
-    assert '<main' in INDEX
+    assert "<main" in INDEX
 
 
 def test_html_app_script_is_deferred():
@@ -44,7 +45,7 @@ def test_html_app_script_is_deferred():
 
     script_tags = re.findall(r"<script[^>]*src=\"app\.js\"[^>]*>", INDEX)
     assert script_tags, "Expected app.js script tag"
-    assert any('defer' in tag for tag in script_tags)
+    assert any("defer" in tag for tag in script_tags)
 
 
 def test_html_firebase_scripts_have_crossorigin():
@@ -76,10 +77,10 @@ def test_app_js_strict_mode():
 def test_app_js_no_obvious_secret_patterns():
     """Guardrail: no hard-coded API keys/tokens checked in."""
     needles = [
-        "AIzaSy",       # Google API key prefix
-        "sk-proj-",     # OpenAI project key prefix
-        "ghp_",         # GitHub personal access token prefix
-        "AKIA",         # AWS access key id prefix
+        "AIzaSy",  # Google API key prefix
+        "sk-proj-",  # OpenAI project key prefix
+        "ghp_",  # GitHub personal access token prefix
+        "AKIA",  # AWS access key id prefix
     ]
     for needle in needles:
         assert needle not in APP_JS, f"Possible leaked secret prefix: {needle}"
@@ -97,4 +98,3 @@ def test_css_defines_focus_visible_styles():
     """Ensure style.css has focus indicators defined for accessibility compliance."""
     assert ".btn:focus-visible" in CSS
     assert ".archetype-selector-small select:focus-visible" in CSS
-

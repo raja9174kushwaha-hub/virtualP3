@@ -705,7 +705,8 @@
 
                             <h4 class="margin-top-md mb-2">Change Archetype</h4>
                             <div class="archetype-selector-small">
-                                <select id="change-archetype-select" onchange="changeArchetype(this.value)">
+                                <label for="habits-change-archetype-select" class="sr-only">Change lifestyle archetype</label>
+                                <select id="habits-change-archetype-select" onchange="changeArchetype(this.value)">
                                     <option value="commuter">The Commuter</option>
                                     <option value="homebody">The Homebody</option>
                                     <option value="urbanite">The Urbanite</option>
@@ -783,14 +784,14 @@
 
                                     <div class="info-grid profile-info-grid">
                                         <div class="info-item">
-                                            <span class="label">Display Name</span>
+                                            <label for="profile-input-name" class="label">Display Name</label>
                                             <div class="input-with-action">
                                                 <input type="text" id="profile-input-name" value="Sarah Jenkins">
                                                 <button class="btn btn-secondary btn-xs" onclick="updateProfileName()">Save</button>
                                             </div>
                                         </div>
                                         <div class="info-item">
-                                            <span class="label">Registered Zip/Postal Code</span>
+                                            <label for="profile-input-zip" class="label">Registered Zip/Postal Code</label>
                                             <div class="input-with-action">
                                                 <input type="text" id="profile-input-zip" value="78701" placeholder="e.g. 78701 or 110001">
                                                 <button class="btn btn-secondary btn-xs" onclick="updateProfileRegion()">Update</button>
@@ -817,8 +818,8 @@
 
                                     <div class="preferences-grid">
                                         <div class="preference-card">
-                                            <label for="change-archetype-select">Lifestyle Archetype</label>
-                                            <select id="change-archetype-select" onchange="changeArchetype(this.value)">
+                                            <label for="profile-change-archetype-select">Lifestyle Archetype</label>
+                                            <select id="profile-change-archetype-select" onchange="changeArchetype(this.value)">
                                                 <option value="commuter">The Commuter</option>
                                                 <option value="homebody">The Homebody</option>
                                                 <option value="urbanite">The Urbanite</option>
@@ -860,7 +861,7 @@
                                             </div>
                                             <div class="setting-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" checked disabled>
+                                                    <input type="checkbox" checked disabled aria-label="Regional Carbon Calculation">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
@@ -873,7 +874,7 @@
                                             </div>
                                             <div class="setting-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" id="profile-consent-habits" checked onchange="toggleConsent('habits')">
+                                                    <input type="checkbox" id="profile-consent-habits" checked onchange="toggleConsent('habits')" aria-label="Personalized Habit Recommendations">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
@@ -886,7 +887,7 @@
                                             </div>
                                             <div class="setting-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" id="profile-consent-leaderboard" checked onchange="toggleConsent('leaderboard')">
+                                                    <input type="checkbox" id="profile-consent-leaderboard" checked onchange="toggleConsent('leaderboard')" aria-label="Geo-League Leaderboards">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
@@ -899,7 +900,7 @@
                                             </div>
                                             <div class="setting-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" id="profile-consent-email" checked onchange="toggleConsent('email')">
+                                                    <input type="checkbox" id="profile-consent-email" checked onchange="toggleConsent('email')" aria-label="Weekly progress emails">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
