@@ -92,7 +92,7 @@ def create_app() -> Flask:
         # Google identity / Firestore endpoints used by the client.
         csp = (
             "default-src 'self'; "
-            "script-src 'self' https://www.gstatic.com; "
+            "script-src 'self' https://www.gstatic.com https://apis.google.com https://www.google.com; "
             "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; "
             "font-src 'self' https://fonts.gstatic.com data:; "
             "img-src 'self' data: blob: https:; "
@@ -101,7 +101,9 @@ def create_app() -> Flask:
             "https://identitytoolkit.googleapis.com "
             "https://securetoken.googleapis.com "
             "https://firestore.googleapis.com "
-            "https://www.gstatic.com; "
+            "https://www.gstatic.com "
+            "https://www.google.com; "
+            "frame-src 'self' https://*.firebaseapp.com https://www.google.com https://recaptcha.google.com; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'; "

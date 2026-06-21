@@ -542,6 +542,25 @@ function getAuthErrorMessage(error) {
     return messages[code] || (error && error.message) || 'Authentication failed. Please try again.';
 }
 
+async function executeRecaptcha(actionName) {
+    if (typeof grecaptcha === 'undefined' || !grecaptcha.enterprise) {
+        console.warn("reCAPTCHA Enterprise script not loaded yet. Skipping verification.");
+        return null;
+    }
+    return new Promise((resolve) => {
+        grecaptcha.enterprise.ready(async () => {
+            try {
+                const token = await grecaptcha.enterprise.execute('6Lf-1SstAAAAABH5JB5E-xHKqqmTtKoNNY-NBvrv', {action: actionName});
+                console.log(`reCAPTCHA Enterprise verification success [action: ${actionName}]:`, token);
+                resolve(token);
+            } catch (err) {
+                console.error("reCAPTCHA Enterprise execution failed:", err);
+                resolve(null);
+            }
+        });
+    });
+}
+
 //// --- APP INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
@@ -744,6 +763,7 @@ async function handleEmailAuth(action) {
     
     if (firebaseMode) {
         try {
+            await executeRecaptcha(action === 'login' ? 'LOGIN' : 'SIGNUP');
             if (action === 'login') {
                 await auth.signInWithEmailAndPassword(email, password);
                 showToast("Signed in successfully!");
@@ -784,6 +804,7 @@ async function handleSocialAuth(provider) {
                 return;
             }
             
+            await executeRecaptcha('SOCIAL_LOGIN');
             await auth.signInWithPopup(authProvider);
             showToast(`Signed in with ${provider}!`);
         } catch (e) {
