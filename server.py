@@ -30,7 +30,10 @@ STATIC_ROOT = BASE_DIR
 DENYLIST = frozenset({
     ".env", ".env.local", ".env.production",
     "server.py", "Dockerfile", "requirements.txt",
+    "requirements-dev.txt",
     ".gitignore", ".dockerignore",
+    "server.err.log", "server.log",
+    ".coverage", "TRDofvirtualEco.pdf",
 })
 
 # Public assets the SPA is allowed to request. Anything outside this set is
@@ -135,6 +138,7 @@ def create_app() -> Flask:
         return jsonify({"error": "internal_error"}), 500
 
     @flask_app.route("/healthz")
+    @flask_app.route("/health")
     def healthz():
         return jsonify({"status": "ok"})
 

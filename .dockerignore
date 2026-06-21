@@ -1,14 +1,55 @@
+# Secrets — never include in production image
 .env
+.env.*
+*.pem
+*.key
+credentials.json
+service-account.json
+
+# Python caches
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
+
+# Virtual environments
 env/
 venv/
 .venv/
+ENV/
+
+# Firebase local dev
 .firebase/
+firebase-debug.log
+
+# Logs
 *.log
+logs/
+
+# OS junk
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Documentation & non-runtime assets
 TRDofvirtualEco.pdf
+README.md
+
+# Test & dev tooling — not needed at runtime
+tests/
+requirements-dev.txt
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# CI / Git — not needed in container
+.git/
+.github/
+.gitignore
+.vscode/
+.idea/
