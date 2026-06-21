@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EcoStep turns small green habits into measurable carbon reductions and real cash savings. Track your footprint, join geo-leagues, and earn Eco-Perks.">
+    <meta name="theme-color" content="#2E5E45">
+    <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EcoStep — Green habits, real savings">
+    <meta property="og:description" content="A privacy-first carbon tracker with daily habits, geo-leagues, and Eco-Perks rewards.">
+    <meta property="og:site_name" content="EcoStep">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="EcoStep — Green habits, real savings">
+    <meta name="twitter:description" content="A privacy-first carbon tracker with daily habits, geo-leagues, and Eco-Perks rewards.">
+    <title>EcoStep — Turn Green Habits Into Cash Savings</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E5E45'/%3E%3Cpath d='M22 44c0-10 8-18 22-20-2 14-10 22-20 22-1 0-2-1-2-2z' fill='%23B7E4C7'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E5E45'/%3E%3Cpath d='M22 44c0-10 8-18 22-20-2 14-10 22-20 22-1 0-2-1-2-2z' fill='%23B7E4C7'/%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Background Decorative Gradients -->
+    <div class="bg-gradient bg-gradient-1"></div>
+    <div class="bg-gradient bg-gradient-2"></div>
+
+    <!-- ONBOARDING SECTION -->
+    <div id="onboarding-container" class="onboarding-container">
+        <div class="onboarding-card glass-panel">
+            <div class="onboarding-header">
+                <div class="logo">
+                    <i data-lucide="leaf" class="logo-icon"></i>
+                    <span>ecoStep</span>
+                </div>
+                <div class="step-indicator" aria-label="Onboarding progress" role="group">
+                    <span class="step-label" id="onboarding-step-counter">Step 1 of 3</span>
+                    <span class="sr-only" id="onboarding-step-label" aria-live="polite">Step 1 of 3</span>
+                    <span class="step-dot active" data-step="1" aria-label="Step 1 of 3, current step" aria-current="step"></span>
+                    <span class="step-dot" data-step="2" aria-label="Step 2 of 3"></span>
+                    <span class="step-dot" data-step="3" aria-label="Step 3 of 3"></span>
+                </div>
+            </div>
+
+            <!-- STEP 1: AUTH -->
+            <div id="step-1" class="onboarding-step active">
+                <div class="auth-splash">
+                    <div class="auth-splash-text">
+                        <span class="eyebrow">Smart, simple sustainability</span>
+                        <h2>Sign in to EcoStep</h2>
+                        <p class="subtitle">Track your carbon footprint, unlock daily micro-habits, and earn Eco-Perks for real-world savings.</p>
+                        <div class="auth-highlights">
+                            <div class="highlight-pill">Fast Google auth</div>
+                            <div class="highlight-pill">Localized energy insights</div>
+                            <div class="highlight-pill">Privacy-first data controls</div>
+                        </div>
+                    </div>
+                    <div class="auth-hero-graphic" aria-hidden="true">
+                        <div class="illustration-panel">
+                            <div class="illustration-dot dot-one"></div>
+                            <div class="illustration-dot dot-two"></div>
+                            <div class="illustration-main-card">
+                                <div class="illustration-card">
+                                    <i data-lucide="leaf" class="illustration-icon"></i>
+                                    <span>Daily habit streak</span>
+                                </div>
+                                <div class="illustration-card">
+                                    <i data-lucide="sparkles" class="illustration-icon"></i>
+                                    <span>Cash savings</span>
+                                </div>
+                                <div class="illustration-card">
+                                    <i data-lucide="map-pin" class="illustration-icon"></i>
+                                    <span>Local league</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="auth-card">
+                    <button class="btn btn-social auth-btn" onclick="handleSocialAuth('Google')" id="google-auth-btn" aria-label="Continue with Google">
+                        <i data-lucide="chrome" class="btn-icon"></i>
+                        <span>Continue with Google</span>
+                    </button>
+
+                    <div class="divider"><span>or continue with email</span></div>
+
+                    <div class="auth-form">
+                        <div class="form-group">
+                            <label for="onboarding-email">Email Address</label>
+                            <input type="email" id="onboarding-email" autocomplete="email" placeholder="sarah.jenkins@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="onboarding-password">Password</label>
+                            <input type="password" id="onboarding-password" autocomplete="current-password" placeholder="••••••••">
+                        </div>
+                        <div class="auth-actions">
+                            <button class="btn btn-primary w-full" id="auth-main-btn" onclick="handleEmailAuth('login')">
+                                <span>Log In</span>
+                            </button>
+                            <button class="btn btn-secondary w-full" id="auth-sec-btn" onclick="handleEmailAuth('signup')">
+                                <span>Create Account</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="fallback-badge hide" id="firebase-fallback-badge">
+                        <span class="badge badge-warning">
+                            <i data-lucide="info" class="badge-icon"></i>
+                            Offline sandbox mode (runs locally)
+                        </span>
+                    </div>
+
+                    <div class="trust-row" aria-label="Security and privacy assurances">
+                        <div class="trust-pill">
+                            <i data-lucide="shield-check" class="trust-icon"></i>
+                            Trusted by 1M+ users
+                        </div>
+                        <div class="trust-pill">
+                            <i data-lucide="shield" class="trust-icon"></i>
+                            Zero data sold
+                        </div>
+                        <div class="trust-pill">
+                            <i data-lucide="lock" class="trust-icon"></i>
+                            Secure cloud sync
+                        </div>
+                    </div>
+                </div>
+
+                <p class="terms">By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. CCPA & GDPR compliant.</p>
+            </div>
+
+            <!-- STEP 2: ARCHETYPE -->
+            <div id="step-2" class="onboarding-step">
+                <h2>Choose Your Lifestyle Archetype</h2>
+                <p class="subtitle">Select the lifestyle that matches you best. We'll personalize your daily micro-habits based on this archetype.</p>
+                
+                <div class="archetypes-grid" role="listbox" aria-label="Lifestyle archetypes">
+                    <button type="button" class="archetype-card" onclick="selectArchetype('commuter', this)" aria-selected="false" role="option">
+                        <div class="archetype-icon-wrapper">
+                            <i data-lucide="car"></i>
+                        </div>
+                        <h3>The Commuter</h3>
+                        <p>You drive or take transit regularly. Focuses on transport efficiencies, route planning, and commute optimization.</p>
+                        <div class="archetype-badge">Typical saving: $45/mo</div>
+                    </button>
+                    
+                    <button type="button" class="archetype-card" onclick="selectArchetype('homebody', this)" aria-selected="false" role="option">
+                        <div class="archetype-icon-wrapper">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <h3>The Homebody</h3>
+                        <p>You work or spend most time at home. Focuses on smart appliance usage, heating/cooling, and utility bill optimization.</p>
+                        <div class="archetype-badge">Typical saving: $60/mo</div>
+                    </button>
+                    
+                    <button type="button" class="archetype-card" onclick="selectArchetype('urbanite', this)" aria-selected="false" role="option">
+                        <div class="archetype-icon-wrapper">
+                            <i data-lucide="shopping-bag"></i>
+                        </div>
+                        <h3>The Urbanite</h3>
+                        <p>You rely on delivery apps, dining out, and urban transit. Focuses on grocery waste, package recycling, and green local shopping.</p>
+                        <div class="archetype-badge">Typical saving: $35/mo</div>
+                    </button>
+                </div>
+
+                <div class="step-footer">
+                    <button class="btn btn-ghost" onclick="prevStep(1)"><i data-lucide="arrow-left" class="btn-icon"></i> Back</button>
+                    <button class="btn btn-primary" id="archetype-next-btn" disabled onclick="nextStep(3)">Continue <i data-lucide="arrow-right" class="btn-icon-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 3: REGION -->
+            <div id="step-3" class="onboarding-step">
+                <h2>Set Your Local Baseline</h2>
+                <p class="subtitle">Input your postal code so we can cross-reference local energy registries and calculate your grid baseline.</p>
+                
+                <div class="region-form">
+                    <div class="form-row">
+                        <div class="form-group w-2-3">
+                            <label for="zip-code">Zip / Postal Code</label>
+                            <div class="input-with-action">
+                                <input type="text" id="zip-code" autocomplete="postal-code" aria-describedby="zip-error" placeholder="e.g. 78701 or 94102">
+                                <button class="btn btn-secondary btn-sm" id="zip-lookup-btn" onclick="lookupZip()">Verify</button>
+                            </div>
+                            <div id="zip-error" class="form-error hide" role="alert" aria-live="assertive"></div>
+                        </div>
+                        <div class="form-group w-1-3">
+                            <label for="household-size">Household Size</label>
+                            <select id="household-size">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4" selected>4 People</option>
+                                <option value="5">5+ People</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="region-success-alert" class="alert alert-success hide" role="status" aria-live="polite">
+                        <i data-lucide="check-circle" class="alert-icon"></i>
+                        <div class="alert-content">
+                            <strong>Location Resolved:</strong> <span id="resolved-location">Austin, TX (ERCOT Grid)</span>.<br>
+                            Grid intensity: <span id="grid-intensity">385 g CO₂e/kWh</span>.
+                        </div>
+                    </div>
+
+                    <div id="region-fallback-alert" class="alert alert-warning hide" role="status" aria-live="polite">
+                        <i data-lucide="alert-triangle" class="alert-icon"></i>
+                        <div class="alert-content">
+                            <strong>Postal code not found:</strong> Falling back to U.S. National Average grid intensities.
+                        </div>
+                    </div>
+
+                    <div class="consent-box">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="notification-consent" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">
+                                <strong>Enable smart push reminders</strong><br>
+                                Send exactly 3 personalized, low-friction habits at my local morning peak.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="consent-box margin-top-sm">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="privacy-consent" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">
+                                <strong>Privacy Agreement (GDPR/CCPA compliant)</strong><br>
+                                Store my habits history pseudonymously. Do not share my zip code or actions with third parties.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calculated-preview card hide" id="calculated-preview">
+                    <div class="preview-metrics">
+                        <div class="preview-metric">
+                            <div class="label">Monthly Footprint Baseline</div>
+                            <div class="value value-co2" id="preview-co2">480 kg CO₂e</div>
+                        </div>
+                        <div class="preview-metric">
+                            <div class="label">Eco-Pulse Starting Score</div>
+                            <div class="value value-score" id="preview-score">82 / 100</div>
+                        </div>
+                    </div>
+                    <div class="preview-disclaimer">
+                        Based on <span id="preview-archetype-name">The Homebody</span> archetype in <span id="preview-city-name">Austin</span>.
+                    </div>
+                </div>
+
+                <div class="step-footer">
+                    <button class="btn btn-ghost" onclick="prevStep(2)"><i data-lucide="arrow-left" class="btn-icon"></i> Back</button>
+                    <button class="btn btn-primary" id="complete-onboarding-btn" onclick="finishOnboarding()">Complete Setup <i data-lucide="check" class="btn-icon-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD SCREEN (Initially hidden) -->
+    <div id="main-app" class="app-layout hide">
+        <!-- SIDEBAR -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i data-lucide="leaf" class="logo-icon"></i>
+                    <span>ecoStep</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" onclick="switchTab('dashboard')">
+                        <a href="#"><i data-lucide="layout-dashboard"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li onclick="switchTab('habits')">
+                        <a href="#"><i data-lucide="check-square"></i> <span>Daily Habits</span></a>
+                    </li>
+                    <li onclick="switchTab('challenges')">
+                        <a href="#"><i data-lucide="users"></i> <span>Geo-Leagues</span></a>
+                    </li>
+                    <li onclick="switchTab('diagnostics')">
+                        <a href="#"><i data-lucide="shield-check"></i> <span>Diagnostics</span></a>
+                    </li>
+                    <li onclick="switchTab('admin')">
+                        <a href="#"><i data-lucide="settings"></i> <span>Admin Console</span></a>
+                    </li>
+                    <li onclick="toggleRewardsDrawer()">
+                        <a href="#"><i data-lucide="ticket"></i> <span>Eco-Perks</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="profile-card" onclick="switchTab('profile')">
+                    <img id="user-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' rx='128' fill='%232E5E45'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-family='Arial' font-size='86' font-weight='700' fill='white'%3EES%3C/text%3E%3C/svg%3E" alt="Avatar" class="avatar">
+                    <div class="profile-info">
+                        <div class="profile-name" id="display-name">Sarah Jenkins</div>
+                        <div class="profile-archetype" id="display-archetype">The Homebody</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="profile-chevron"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main id="main-content" class="main-content" tabindex="-1">
+            <!-- TOP BAR -->
+            <header class="top-bar">
+                <div class="header-left">
+                    <div class="greeting-container">
+                        <h1 id="page-title">Main Dashboard</h1>
+                        <span class="region-badge" id="region-badge"><i data-lucide="map-pin"></i> Austin, TX</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="stats-pills">
+                        <div class="pill pill-streak" title="Daily streak of completed green actions">
+                            <i data-lucide="flame"></i>
+                            <span id="streak-count">5 Days</span>
+                        </div>
+                        <div class="pill pill-points" title="Accumulated Eco-Points for Perks Marketplace" onclick="toggleRewardsDrawer()">
+                            <i data-lucide="sparkles"></i>
+                            <span id="points-count">850 PTS</span>
+                        </div>
+                    </div>
+                    <button class="icon-btn theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+                        <i data-lucide="moon" class="dark-icon"></i>
+                        <i data-lucide="sun" class="light-icon hide"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- TABS CONTAINER -->
+            <div class="tab-content-container">
+                <!-- TAB: DASHBOARD -->
+                <div id="tab-dashboard" class="tab-panel active">
+                    <div class="dashboard-3col-container">
+                        <!-- ═══════ LEFT COLUMN ═══════ -->
+                        <div class="dashboard-col col-left">
+                            <!-- ECO PULSE & PROGRESS -->
+                            <div class="card glass-panel kpi-card flex-col" id="eco-pulse-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-title">Eco Pulse & Progress</span>
+                                    <div class="badge badge-emerald" id="eco-pulse-percent">-24% vs City</div>
+                                </div>
+                                
+                                <div class="gauge-container">
+                                    <svg class="gauge" viewBox="0 0 100 100" role="img" aria-label="Eco-Score gauge showing carbon reduction progress">
+                                        <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                                        <circle class="gauge-fill" id="pulse-gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="100"></circle>
+                                    </svg>
+                                    <div class="gauge-overlay">
+                                        <div class="gauge-score" id="dashboard-score">76</div>
+                                        <div class="gauge-label">Eco-Score</div>
+                                    </div>
+                                </div>
+
+                                <div class="kpi-meta text-center">
+                                    <span class="highlight-text" id="dashboard-co2-saved">12.5 kg</span> CO₂e avoided this month
+                                </div>
+
+                                <!-- BASELINE FOOTPRINT BREAKDOWN -->
+                                <div class="footprint-breakdown" id="footprint-breakdown">
+                                    <h4 class="breakdown-title"><i data-lucide="pie-chart" class="breakdown-title-icon"></i> Footprint Breakdown</h4>
+                                    <div class="breakdown-bar-group">
+                                        <div class="breakdown-bar-item">
+                                            <div class="breakdown-bar-label">
+                                                <span><i data-lucide="car" class="breakdown-cat-icon"></i> Transport</span>
+                                                <span class="font-mono" id="fb-transport-val">38%</span>
+                                            </div>
+                                            <div class="breakdown-bar-track"><div class="breakdown-bar-fill bg-blue" id="fb-transport-bar" style="width:38%"></div></div>
+                                        </div>
+                                        <div class="breakdown-bar-item">
+                                            <div class="breakdown-bar-label">
+                                                <span><i data-lucide="zap" class="breakdown-cat-icon"></i> Energy</span>
+                                                <span class="font-mono" id="fb-energy-val">31%</span>
+                                            </div>
+                                            <div class="breakdown-bar-track"><div class="breakdown-bar-fill bg-orange" id="fb-energy-bar" style="width:31%"></div></div>
+                                        </div>
+                                        <div class="breakdown-bar-item">
+                                            <div class="breakdown-bar-label">
+                                                <span><i data-lucide="utensils" class="breakdown-cat-icon"></i> Food</span>
+                                                <span class="font-mono" id="fb-food-val">21%</span>
+                                            </div>
+                                            <div class="breakdown-bar-track"><div class="breakdown-bar-fill bg-emerald" id="fb-food-bar" style="width:21%"></div></div>
+                                        </div>
+                                        <div class="breakdown-bar-item">
+                                            <div class="breakdown-bar-label">
+                                                <span><i data-lucide="trash-2" class="breakdown-cat-icon"></i> Waste</span>
+                                                <span class="font-mono" id="fb-waste-val">10%</span>
+                                            </div>
+                                            <div class="breakdown-bar-track"><div class="breakdown-bar-fill bg-red" id="fb-waste-bar" style="width:10%"></div></div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-explainer" onclick="toggleExplainer('footprint-explainer')" aria-expanded="false" aria-controls="footprint-explainer">
+                                        <i data-lucide="info" class="explainer-icon"></i> Where do these estimates come from?
+                                    </button>
+                                    <div class="explainer-panel hide" id="footprint-explainer" role="region" aria-label="Footprint methodology explanation">
+                                        <p><strong>Methodology:</strong> Baseline footprints are calculated from U.S. EPA eGRID regional emissions factors, cross-referenced with your zip code's grid intensity. Category weights derive from the World Resources Institute's GHG Protocol: transport (avg. 38%), home energy (31%), food (21%), and waste (10%) for a typical U.S. household.</p>
+                                        <p class="explainer-source">Source: EPA eGRID 2024 · WRI GHG Protocol · IPCC AR6</p>
+                                    </div>
+                                </div>
+
+                                <!-- MONTHLY GOAL TRACKER -->
+                                <div class="monthly-goal-tracker" id="monthly-goal-tracker">
+                                    <h4 class="breakdown-title"><i data-lucide="target" class="breakdown-title-icon"></i> Monthly Goal</h4>
+                                    <div class="goal-display">
+                                        <div class="goal-progress-ring">
+                                            <svg viewBox="0 0 80 80" class="goal-ring-svg" role="img" aria-label="Monthly goal progress ring">
+                                                <circle class="goal-ring-bg" cx="40" cy="40" r="34"></circle>
+                                                <circle class="goal-ring-fill" id="goal-ring-fill" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"></circle>
+                                            </svg>
+                                            <div class="goal-ring-text">
+                                                <span class="goal-percent" id="goal-percent">0%</span>
+                                            </div>
+                                        </div>
+                                        <div class="goal-details">
+                                            <div class="goal-target-line">
+                                                <span class="goal-label">Target</span>
+                                                <span class="goal-value font-mono" id="goal-target-val">15 kg CO₂e</span>
+                                            </div>
+                                            <div class="goal-target-line">
+                                                <span class="goal-label">Achieved</span>
+                                                <span class="goal-value font-mono text-emerald" id="goal-achieved-val">0 kg</span>
+                                            </div>
+                                            <div class="goal-target-line">
+                                                <span class="goal-label">Remaining</span>
+                                                <span class="goal-value font-mono text-orange" id="goal-remaining-val">15 kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="goal-status-msg" id="goal-status-msg">Start logging actions to reach your monthly goal!</div>
+                                </div>
+                            </div>
+
+                            <!-- EQUIVALENCY MILESTONES (EXPANDED - All 3 visible) -->
+                            <div class="card glass-panel flex-col" id="equivalency-milestones-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-title">Equivalency Milestones</span>
+                                    <i data-lucide="award" class="text-blue"></i>
+                                </div>
+                                <div class="equivalency-grid-expanded" id="equivalency-grid-expanded">
+                                    <div class="eq-milestone-card eq-trees">
+                                        <div class="eq-milestone-icon"><i data-lucide="trees" class="text-emerald"></i></div>
+                                        <div class="eq-milestone-value" id="eq-trees-val">0.6</div>
+                                        <div class="eq-milestone-label">Trees Nurtured</div>
+                                        <div class="eq-milestone-sub" id="eq-trees-sub">10-year seedlings</div>
+                                    </div>
+                                    <div class="eq-milestone-card eq-miles">
+                                        <div class="eq-milestone-icon"><i data-lucide="fuel" class="text-orange"></i></div>
+                                        <div class="eq-milestone-value" id="eq-miles-val">31</div>
+                                        <div class="eq-milestone-label">Miles Avoided</div>
+                                        <div class="eq-milestone-sub" id="eq-miles-sub">gas driving</div>
+                                    </div>
+                                    <div class="eq-milestone-card eq-bottles">
+                                        <div class="eq-milestone-icon"><i data-lucide="recycle" class="text-blue"></i></div>
+                                        <div class="eq-milestone-value" id="eq-bottles-val">563</div>
+                                        <div class="eq-milestone-label">Bottles Recycled</div>
+                                        <div class="eq-milestone-sub" id="eq-bottles-sub">single-use plastic</div>
+                                    </div>
+                                </div>
+                                <button class="btn-explainer" onclick="toggleExplainer('equiv-explainer')" aria-expanded="false" aria-controls="equiv-explainer">
+                                    <i data-lucide="info" class="explainer-icon"></i> How are equivalencies calculated?
+                                </button>
+                                <div class="explainer-panel hide" id="equiv-explainer" role="region" aria-label="Equivalency calculation explanation">
+                                    <p><strong>Trees:</strong> 1 tree absorbs ~21 kg CO₂/year. We calculate seedlings over a 10-year growth period. <strong>Miles:</strong> Average gasoline car emits 0.404 kg CO₂/mile (EPA). <strong>Bottles:</strong> Manufacturing one PET bottle produces ~0.082 kg CO₂ (WRAP UK).</p>
+                                    <p class="explainer-source">Source: EPA GHG Equivalencies Calculator · WRAP UK Plastics LCA</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══════ CENTER COLUMN ═══════ -->
+                        <div class="dashboard-col col-center">
+                            <!-- WEEKLY SAVINGS TREND -->
+                            <div class="card glass-panel chart-card">
+                                <div class="panel-header">
+                                    <div>
+                                        <h2>Weekly Savings Trend</h2>
+                                        <span class="subtitle-badge">Carbon score index vs financial cash back over last 7 days</span>
+                                    </div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <svg class="trend-chart" viewBox="0 0 500 200" id="weekly-trend-chart" role="img" aria-label="Weekly savings trend chart showing carbon score and cash savings">
+                                        <!-- Dynamic elements injected by app.js -->
+                                    </svg>
+                                </div>
+                                <div class="chart-legend">
+                                    <span class="legend-item"><span class="legend-dot bg-emerald"></span> Carbon Score Index</span>
+                                    <span class="legend-item"><span class="legend-dot bg-blue"></span> Cash Saved ($)</span>
+                                </div>
+                            </div>
+
+                            <!-- RECENT ECO-ACTION LEDGER -->
+                            <div class="card glass-panel data-table-card">
+                                <div class="panel-header">
+                                    <h2>Recent Eco-Action Ledger</h2>
+                                    <div class="panel-actions">
+                                        <button class="btn btn-secondary btn-sm" onclick="showAddActionModal()" id="log-action-btn">
+                                            <i data-lucide="plus" class="btn-icon"></i> Log Action
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="table-container">
+                                    <table class="data-table" role="table" aria-label="Recent eco-actions ledger">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Habit / Action</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">CO₂e Saved</th>
+                                                <th scope="col">Cash</th>
+                                                <th scope="col">Points</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ledger-table-body">
+                                            <!-- Rows injected dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- ✨ SMART AI INSIGHTS (NEW) -->
+                            <div class="card glass-panel smart-insights-card" id="smart-insights-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-title"><i data-lucide="sparkles" class="insight-title-icon"></i> Smart AI Insights</span>
+                                    <span class="badge badge-primary" id="insights-archetype-tag">The Homebody</span>
+                                </div>
+                                <p class="muted-text text-sm mb-4">Personalized recommendations based on your archetype profile, activity patterns, and regional baselines.</p>
+                                <div class="insights-list" id="smart-insights-list" role="list" aria-label="AI-generated sustainability insights">
+                                    <!-- Dynamically injected by app.js -->
+                                </div>
+                                <button class="btn-explainer" onclick="toggleExplainer('insights-explainer')" aria-expanded="false" aria-controls="insights-explainer">
+                                    <i data-lucide="info" class="explainer-icon"></i> How does the AI engine personalize insights?
+                                </button>
+                                <div class="explainer-panel hide" id="insights-explainer" role="region" aria-label="AI insights methodology explanation">
+                                    <p><strong>Personalization Engine:</strong> Insights are generated by cross-referencing your lifestyle archetype (e.g., Homebody focuses on home energy), your regional grid intensity factor, and your completion history. The engine prioritizes actions with the highest CO₂e-per-minute impact ratio that you haven't yet completed.</p>
+                                    <p class="explainer-source">Model: EcoStep Behavioral Nudge Engine v2.1 · Regional data: eGRID 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══════ RIGHT COLUMN ═══════ -->
+                        <div class="dashboard-col col-right">
+                            <!-- DAILY MICRO-HABITS (PROMINENT) -->
+                            <div class="card glass-panel kpi-card flex-col justify-between habits-primary-card" id="dashboard-habits-panel">
+                                <div>
+                                    <div class="kpi-header">
+                                        <span class="kpi-title">Daily Micro-Habits</span>
+                                        <span class="habit-ratio" id="habit-ratio">2/3</span>
+                                    </div>
+                                    <p class="muted-text text-sm mb-4">Complete your three personalized actions today for cash + carbon points.</p>
+                                    
+                                    <div class="habits-list-small" id="dashboard-habits-list">
+                                        <!-- Habits injected dynamically -->
+                                    </div>
+                                </div>
+                                <div class="action-footer">
+                                    <button class="btn btn-ghost btn-sm w-full" onclick="switchTab('habits')" id="manage-habits-btn">
+                                        <span>Manage Actions</span>
+                                        <i data-lucide="arrow-right" class="btn-icon-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- CASH-BACK SAVINGS SUMMARY -->
+                            <div class="card glass-panel kpi-card flex-col justify-between">
+                                <div>
+                                    <div class="kpi-header">
+                                        <span class="kpi-title">Cash-Back Savings</span>
+                                        <i data-lucide="banknote" class="text-emerald"></i>
+                                    </div>
+                                    <div class="savings-large">
+                                        <span class="currency">$</span><span id="dashboard-cash-saved">48.20</span>
+                                    </div>
+                                    <p class="muted-text text-sm">Estimated financial savings from completed habits & actions.</p>
+                                </div>
+                                <div class="savings-breakdown">
+                                    <div class="breakdown-item">
+                                        <span class="label">Utilities</span>
+                                        <span class="value font-mono text-emerald" id="breakdown-utilities">+$24.50</span>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span class="label">Commute/Fuel</span>
+                                        <span class="value font-mono text-emerald" id="breakdown-commute">+$15.20</span>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <span class="label">Food/Waste</span>
+                                        <span class="value font-mono text-emerald" id="breakdown-food">+$8.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ✨ INLINE ECO-PERKS MARKETPLACE -->
+                            <div class="card glass-panel flex-col inline-perks-card" id="inline-perks-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-title"><i data-lucide="ticket" class="perk-title-icon"></i> Eco-Perks</span>
+                                    <span class="perks-balance-pill" id="inline-perks-balance">850 PTS</span>
+                                </div>
+                                <div class="inline-perks-list" id="inline-perks-list" role="list" aria-label="Quick-access eco-perks marketplace">
+                                    <!-- Dynamically injected by app.js -->
+                                </div>
+                                <div class="action-footer">
+                                    <button class="btn btn-ghost btn-sm w-full" onclick="toggleRewardsDrawer()" id="open-full-perks-btn">
+                                        <span>Full Marketplace</span>
+                                        <i data-lucide="arrow-right" class="btn-icon-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- GEO-LEAGUE STANDINGS -->
+                            <div class="card glass-panel flex-col justify-between">
+                                <div>
+                                    <div class="panel-header flex-col align-start">
+                                        <h2 id="league-city-header">Austin Metro League</h2>
+                                        <span class="subtitle-badge">Geo-League: Neighborhood Standings</span>
+                                    </div>
+
+                                    <div class="challenge-summary card mb-4">
+                                        <div class="challenge-meta">
+                                            <div class="challenge-title">
+                                                <i data-lucide="bus" class="text-blue"></i>
+                                                <strong>Transit challenge: Austin vs Dallas</strong>
+                                            </div>
+                                            <div class="countdown" id="challenge-timer">3d 4h left</div>
+                                        </div>
+                                        <div class="progress-bar-container margin-top-xs">
+                                            <div class="progress-bar-fill bg-gradient-accent" style="width: 68%;"></div>
+                                        </div>
+                                        <div class="challenge-stats">
+                                            <span>Austin: 8,430 lbs CO₂e</span>
+                                            <span>Dallas: 7,120 lbs</span>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="section-title-sm mb-2">Neighborhood Rankings</h3>
+                                    <div class="leaderboard-chart" id="leaderboard-container" role="list" aria-label="Neighborhood leaderboard rankings">
+                                        <!-- Dynamic Leaderboard list -->
+                                    </div>
+                                </div>
+                                
+                                <div class="action-footer border-top margin-top-sm pt-3">
+                                    <button class="btn btn-secondary btn-sm w-full" onclick="switchTab('challenges')" id="view-challenges-btn">
+                                        <i data-lucide="trophy" class="btn-icon"></i> View Active Challenges
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: HABITS -->
+                <div id="tab-habits" class="tab-panel">
+                    <div class="section-header-wide glass-panel">
+                        <div class="header-details">
+                            <h2>Daily Micro-Habits Engine</h2>
+                            <p>Personalized daily actions designed to build green habits, save cash, and earn perks.</p>
+                        </div>
+                        <div class="header-filters">
+                            <span class="active-badge"><i data-lucide="cpu"></i> Active Archetype: <strong id="habits-archetype-badge">The Homebody</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="habits-layout-grid">
+                        <div class="habits-main-panel card glass-panel">
+                            <div class="panel-header">
+                                <h3>Today's Habits Checklist</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="refreshDailyHabits()">
+                                    <i data-lucide="refresh-cw" class="btn-icon"></i> Roll New Habits
+                                </button>
+                            </div>
+
+                            <div class="habits-list-large" id="habits-checklist-large">
+                                <!-- Injected dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="habits-info-panel card glass-panel">
+                            <h3>Habits Analytics</h3>
+                            <div class="habit-stats-grid">
+                                <div class="habit-stat-card">
+                                    <span class="label">Completion Rate</span>
+                                    <span class="value text-emerald" id="stats-completion-rate">88%</span>
+                                </div>
+                                <div class="habit-stat-card">
+                                    <span class="label">Actions Logged</span>
+                                    <span class="value text-blue" id="stats-total-actions">24</span>
+                                </div>
+                            </div>
+
+                            <h4 class="margin-top-md mb-2">My Archetype Profile</h4>
+                            <div class="archetype-info-box" id="archetype-info-box">
+                                <!-- Info injected dynamically based on current archetype -->
+                            </div>
+
+                            <h4 class="margin-top-md mb-2">Change Archetype</h4>
+                            <div class="archetype-selector-small">
+                                <select id="change-archetype-select" onchange="changeArchetype(this.value)">
+                                    <option value="commuter">The Commuter</option>
+                                    <option value="homebody">The Homebody</option>
+                                    <option value="urbanite">The Urbanite</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CHALLENGES -->
+                <div id="tab-challenges" class="tab-panel">
+                    <div class="section-header-wide glass-panel mb-6">
+                        <div class="header-details">
+                            <h2>Geo-Leagues & Community Challenges</h2>
+                            <p>Compete with neighbor cities or zones to drive community impact and earn massive bonus points.</p>
+                        </div>
+                    </div>
+
+                    <div class="challenges-grid" id="challenges-list-container">
+                        <!-- Dynamic challenge items injected by app.js -->
+                    </div>
+                </div>
+
+                <!-- TAB: PROFILE -->
+                <div id="tab-profile" class="tab-panel">
+                    <div class="profile-layout card glass-panel">
+                        <div class="profile-top-grid">
+                            <aside class="profile-sidebar card-panel">
+                                <div class="profile-avatar-panel">
+                                    <div class="profile-avatar-wrapper">
+                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' rx='128' fill='%232E5E45'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-family='Arial' font-size='86' font-weight='700' fill='white'%3EES%3C/text%3E%3C/svg%3E" alt="Avatar" class="avatar-large">
+                                        <button class="btn-avatar-edit" aria-label="Edit Avatar"><i data-lucide="camera"></i></button>
+                                    </div>
+                                    <div class="profile-header-meta">
+                                        <h2 id="profile-name-title">Sarah Jenkins</h2>
+                                        <p class="profile-role">EcoStep member</p>
+                                        <div class="profile-badges">
+                                            <span class="badge badge-primary" id="profile-archetype-badge">The Homebody</span>
+                                            <span class="badge badge-emerald">Trusted</span>
+                                        </div>
+                                        <p class="muted-text text-sm mt-3" id="profile-region-line"><i data-lucide="map-pin"></i> Region: Austin, TX (Zip 78701)</p>
+                                    </div>
+                                </div>
+
+                                <div class="profile-metric-grid">
+                                    <div class="profile-metric-card">
+                                        <span class="metric-label">Eco-Score</span>
+                                        <strong class="metric-value" id="profile-score">82</strong>
+                                    </div>
+                                    <div class="profile-metric-card">
+                                        <span class="metric-label">Points Wallet</span>
+                                        <strong class="metric-value" id="profile-points">150</strong>
+                                    </div>
+                                    <div class="profile-metric-card">
+                                        <span class="metric-label">Current Streak</span>
+                                        <strong class="metric-value" id="profile-streak">1 day</strong>
+                                    </div>
+                                </div>
+
+                                <div class="profile-cta-group">
+                                    <button class="btn btn-secondary w-full" onclick="logoutUser()">Sign Out</button>
+                                    <button class="btn btn-destructive w-full" onclick="resetProfile()">Reset Profile</button>
+                                </div>
+                            </aside>
+
+                            <section class="profile-main-grid">
+                                <div class="profile-card-section">
+                                    <div class="section-header with-action">
+                                        <div>
+                                            <h3>Account Details</h3>
+                                            <p class="muted-text text-sm">Update your name, location and contact settings.</p>
+                                        </div>
+                                        <button class="btn btn-sm" onclick="document.getElementById('profile-input-name').focus()">Edit</button>
+                                    </div>
+
+                                    <div class="info-grid profile-info-grid">
+                                        <div class="info-item">
+                                            <span class="label">Display Name</span>
+                                            <div class="input-with-action">
+                                                <input type="text" id="profile-input-name" value="Sarah Jenkins">
+                                                <button class="btn btn-secondary btn-xs" onclick="updateProfileName()">Save</button>
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="label">Registered Zip/Postal Code</span>
+                                            <div class="input-with-action">
+                                                <input type="text" id="profile-input-zip" value="78701" placeholder="e.g. 78701 or 110001">
+                                                <button class="btn btn-secondary btn-xs" onclick="updateProfileRegion()">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="label">Account Email</span>
+                                            <div class="value" id="profile-value-email">sarah.jenkins@example.com</div>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="label">Account Status</span>
+                                            <div class="value text-emerald font-semibold">Active</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-card-section">
+                                    <div class="section-header">
+                                        <div>
+                                            <h3>Personalization</h3>
+                                            <p class="muted-text text-sm">Fine-tune your EcoStep experience with smart settings.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="preferences-grid">
+                                        <div class="preference-card">
+                                            <label for="change-archetype-select">Lifestyle Archetype</label>
+                                            <select id="change-archetype-select" onchange="changeArchetype(this.value)">
+                                                <option value="commuter">The Commuter</option>
+                                                <option value="homebody">The Homebody</option>
+                                                <option value="urbanite">The Urbanite</option>
+                                            </select>
+                                        </div>
+                                        <div class="preference-card">
+                                            <label for="profile-input-household">Household Size</label>
+                                            <select id="profile-input-household">
+                                                <option value="1">1 Person</option>
+                                                <option value="2">2 People</option>
+                                                <option value="3">3 People</option>
+                                                <option value="4">4 People</option>
+                                                <option value="5">5+ People</option>
+                                            </select>
+                                        </div>
+                                        <div class="preference-card preference-goal-card">
+                                            <label for="profile-input-goal">Monthly CO₂ Reduction Goal</label>
+                                            <div class="input-with-action">
+                                                <input type="number" id="profile-input-goal" min="1" value="15" placeholder="kg CO₂e">
+                                                <button class="btn btn-secondary btn-xs" onclick="updateProfilePreferences()">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-card-section">
+                                    <div class="section-header">
+                                        <div>
+                                            <h3>Privacy & Consent</h3>
+                                            <p class="muted-text text-sm">Control how your data is used and shared across EcoStep features.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="consent-settings">
+                                        <div class="consent-setting-row">
+                                            <div class="setting-text">
+                                                <strong>Regional Carbon Calculation</strong>
+                                                <p>Use your zip code to resolve local grid emissions factors.</p>
+                                            </div>
+                                            <div class="setting-toggle">
+                                                <label class="switch">
+                                                    <input type="checkbox" checked disabled>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="consent-setting-row mt-4">
+                                            <div class="setting-text">
+                                                <strong>Personalized Habit Recommendations</strong>
+                                                <p>Allow EcoStep to tailor habits using your activity history.</p>
+                                            </div>
+                                            <div class="setting-toggle">
+                                                <label class="switch">
+                                                    <input type="checkbox" id="profile-consent-habits" checked onchange="toggleConsent('habits')">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="consent-setting-row mt-4">
+                                            <div class="setting-text">
+                                                <strong>Geo-League Leaderboards</strong>
+                                                <p>Share anonymized team points for neighborhood competitions.</p>
+                                            </div>
+                                            <div class="setting-toggle">
+                                                <label class="switch">
+                                                    <input type="checkbox" id="profile-consent-leaderboard" checked onchange="toggleConsent('leaderboard')">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="consent-setting-row mt-4">
+                                            <div class="setting-text">
+                                                <strong>Weekly progress emails</strong>
+                                                <p>Receive a summary of carbon savings and challenges each week.</p>
+                                            </div>
+                                            <div class="setting-toggle">
+                                                <label class="switch">
+                                                    <input type="checkbox" id="profile-consent-email" checked onchange="toggleConsent('email')">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-actions-inline">
+                                        <button class="btn btn-secondary" onclick="logoutUser()">Sign Out</button>
+                                        <button class="btn btn-destructive" onclick="resetProfile()">Reset Account</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: DIAGNOSTICS -->
+                <div id="tab-diagnostics" class="tab-panel">
+                    <div class="section-header-wide glass-panel mb-6">
+                        <div class="header-details">
+                            <h2>System Diagnostics & Test Suite</h2>
+                            <p>Execute client-side verification assertions to ensure Code Quality, Security, and Efficiency parameters.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="runDiagnostics()"><i data-lucide="play" class="btn-icon"></i> Run Test Suite</button>
+                    </div>
+
+                    <div class="diagnostics-grid">
+                        <div class="card glass-panel text-center flex-col justify-between" id="diagnostics-status-card">
+                            <div>
+                                <h3 class="section-title-sm mb-4">Diagnostics Status</h3>
+                                <div class="diagnostics-summary-val" id="diagnostics-score">--</div>
+                                <p class="muted-text text-sm" id="diagnostics-summary-msg">Test suite not executed yet. Click "Run Test Suite" to verify system integrity.</p>
+                            </div>
+                        </div>
+
+                        <div class="card glass-panel flex-col">
+                            <h3 class="mb-4">Verification Assertions</h3>
+                            <div class="assertions-list" id="assertions-list">
+                                <p class="muted-text text-center py-6">Diagnostics checks are idle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ADMIN CONSOLE -->
+                <div id="tab-admin" class="tab-panel">
+                    <div class="section-header-wide glass-panel mb-6">
+                        <div class="header-details">
+                            <h2>Admin configuration Console</h2>
+                            <p>Configure regional emissions factors, manage habits datasets, configure challenges, and monitor audit logs.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid">
+                        <!-- LEFT COL: EMISSIONS & HABITS CONFIG -->
+                        <div class="flex-col gap-6">
+                            <!-- Grid Registry Config -->
+                            <div class="card glass-panel">
+                                <h3>Regional Emissions Factors Registry</h3>
+                                <p class="muted-text text-sm mb-4">Manage regional grid emission intensity factors (g CO₂e/kWh).</p>
+                                
+                                <div class="table-container mb-4">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Zip</th>
+                                                <th>City/State</th>
+                                                <th>Grid</th>
+                                                <th>Intensity</th>
+                                                <th>Factor</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-regions-table-body">
+                                            <!-- Injected dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h4>Add/Update Region Factor</h4>
+                                <div class="form-row margin-top-xs">
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-zip">Zip Code</label>
+                                        <input type="text" id="admin-zip" placeholder="e.g. 90210">
+                                    </div>
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-city">City, State</label>
+                                        <input type="text" id="admin-city" placeholder="Los Angeles, CA">
+                                    </div>
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-grid">Grid Name</label>
+                                        <input type="text" id="admin-grid" placeholder="LADWP Grid">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group w-1-2">
+                                        <label for="admin-intensity">Intensity (g CO₂e/kWh)</label>
+                                        <input type="number" id="admin-intensity" placeholder="250">
+                                    </div>
+                                    <div class="form-group w-1-2">
+                                        <label for="admin-factor">Scaling Factor</label>
+                                        <input type="number" id="admin-factor" step="0.01" placeholder="0.65">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-full" onclick="adminSaveRegion()">Save Region Registry Factor</button>
+                            </div>
+
+                            <!-- Habits configuration -->
+                            <div class="card glass-panel">
+                                <h3>Habit Catalog Editor</h3>
+                                <p class="muted-text text-sm mb-4">Add a new daily habit definition to the system database.</p>
+                                
+                                <div class="form-group">
+                                    <label for="admin-habit-archetype">Target Archetype</label>
+                                    <select id="admin-habit-archetype">
+                                        <option value="commuter">The Commuter</option>
+                                        <option value="homebody">The Homebody</option>
+                                        <option value="urbanite">The Urbanite</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-habit-title">Habit Title</label>
+                                    <input type="text" id="admin-habit-title" placeholder="e.g., Turn off smart chargers">
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-habit-desc">Description</label>
+                                    <input type="text" id="admin-habit-desc" placeholder="e.g., Unplug smart charging adapters overnight to save standby load.">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-habit-co2">CO₂ Saved (kg)</label>
+                                        <input type="number" id="admin-habit-co2" step="0.1" placeholder="0.8">
+                                    </div>
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-habit-cash">Cash Saved ($)</label>
+                                        <input type="number" id="admin-habit-cash" step="0.05" placeholder="0.50">
+                                    </div>
+                                    <div class="form-group w-1-3">
+                                        <label for="admin-habit-pts">Points Reward</label>
+                                        <input type="number" id="admin-habit-pts" placeholder="30">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-habit-time">Completion Time</label>
+                                    <select id="admin-habit-time">
+                                        <option value="under_30s">Under 30 Seconds</option>
+                                        <option value="5m">5 Minutes</option>
+                                        <option value="15m">15 Minutes</option>
+                                        <option value="30m">30+ Minutes</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary btn-sm w-full" onclick="adminAddHabit()">Add Habit to Catalog</button>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COL: CHALLENGES & AUDIT LOGS -->
+                        <div class="flex-col gap-6">
+                            <!-- Challenge Setup -->
+                            <div class="card glass-panel">
+                                <h3>Geo-League Challenge Setup</h3>
+                                <p class="muted-text text-sm mb-4">Launch a new neighborhood challenge.</p>
+                                
+                                <div class="form-group">
+                                    <label for="admin-challenge-title">Challenge Title</label>
+                                    <input type="text" id="admin-challenge-title" placeholder="e.g., Austin Water Conservation League">
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-challenge-desc">Description</label>
+                                    <input type="text" id="admin-challenge-desc" placeholder="e.g., Reduce hot water usage by taking shorter showers.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-challenge-icon">Icon Class</label>
+                                    <select id="admin-challenge-icon">
+                                        <option value="droplet">Water (Droplet)</option>
+                                        <option value="zap">Energy (Zap)</option>
+                                        <option value="bus">Transit (Bus)</option>
+                                        <option value="package">Recycling (Package)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-challenge-reward">Points Reward Potential</label>
+                                    <input type="number" id="admin-challenge-reward" placeholder="400">
+                                </div>
+                                <button class="btn btn-primary btn-sm w-full" onclick="adminAddChallenge()">Launch Community Challenge</button>
+                            </div>
+
+                            <!-- System Audit Logs -->
+                            <div class="card glass-panel flex-col">
+                                <h3>System Audit logs</h3>
+                                <p class="muted-text text-sm mb-4">Real-time configuration provenance and administrative action trails.</p>
+                                <div class="audit-log-container font-mono" id="admin-audit-log-box">
+                                    <!-- Injected dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ECO-PERKS MARKETPLACE DRAWER (Slide out) -->
+    <div id="rewards-drawer-backdrop" class="drawer-backdrop hide" onclick="toggleRewardsDrawer()"></div>
+    <div id="rewards-drawer" class="rewards-drawer glass-panel hide">
+        <div class="drawer-header">
+            <div class="header-title">
+                <i data-lucide="ticket" class="text-blue"></i>
+                <h2>Eco-Perks Marketplace</h2>
+            </div>
+            <button class="icon-btn" onclick="toggleRewardsDrawer()" aria-label="Close rewards marketplace"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="drawer-body">
+            <div class="points-wallet mb-6">
+                <span class="label">Your Eco-Points Balance</span>
+                <div class="wallet-balance">
+                    <i data-lucide="sparkles" class="text-gold"></i>
+                    <span id="drawer-points-balance">850</span> <span class="pts-unit">PTS</span>
+                </div>
+            </div>
+
+            <div class="drawer-tabs">
+                <button class="drawer-tab active" id="tab-rewards-catalog" onclick="switchDrawerTab('catalog')">Redeem Perks</button>
+                <button class="drawer-tab" id="tab-rewards-wallet" onclick="switchDrawerTab('wallet')">My Vouchers (<span id="voucher-count">0</span>)</button>
+            </div>
+
+            <!-- Drawer View: Catalog -->
+            <div id="drawer-catalog-view" class="drawer-view active">
+                <div class="rewards-list" id="rewards-catalog-list">
+                    <!-- Reward items injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Drawer View: Wallet (User's Redeemed Vouchers) -->
+            <div id="drawer-wallet-view" class="drawer-view">
+                <div class="vouchers-list" id="my-vouchers-list">
+                    <p class="muted-text text-center py-6">You have no active vouchers. Earn points by completing habits and redeem them here!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MANUAL LOG ACTION -->
+    <div id="action-modal" class="modal-backdrop hide">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h2>Log Eco-Action</h2>
+                <button class="icon-btn" onclick="hideAddActionModal()" aria-label="Close modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="action-category">Action Category</label>
+                    <select id="action-category" onchange="updateActionSelect()">
+                        <option value="commute">Commute / Transportation</option>
+                        <option value="utilities">Utilities & Energy</option>
+                        <option value="food">Food & Grocery Waste</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="action-select">Habit / Action Details</label>
+                    <select id="action-select">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group w-1-2">
+                        <label for="action-qty">Times Done</label>
+                        <input type="number" id="action-qty" value="1" min="1" max="10">
+                    </div>
+                    <div class="form-group w-1-2">
+                        <label>Expected Rewards</label>
+                        <div class="expected-stats" id="expected-rewards-preview">
+                            <span class="text-emerald">+$1.50</span> / <span class="text-blue">-0.8 kg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideAddActionModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitLoggedAction()">Log Action <i data-lucide="plus" class="btn-icon-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hide">
+        <i data-lucide="check-circle" class="toast-icon"></i>
+        <span id="toast-message">Habit completed! +50 PTS</span>
+    </div>
+
+    <!-- Firebase SDK Compat (pinned, deferred, cross-origin-attributed) -->
+    <script defer crossorigin="anonymous" referrerpolicy="no-referrer"
+            src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer crossorigin="anonymous" referrerpolicy="no-referrer"
+            src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script defer crossorigin="anonymous" referrerpolicy="no-referrer"
+            src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script defer crossorigin="anonymous" referrerpolicy="no-referrer" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.firebase/
+*.log
+.DS_Store
+Thumbs.db
+TRDofvirtualEco.pdf
