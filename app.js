@@ -371,7 +371,6 @@ const DEFAULT_STATE = {
 let state = createDefaultState();
 
 // Firebase & Auth Globals
-let firebaseApp = null;
 let db = null;
 let auth = null;
 let firebaseMode = false;
@@ -536,8 +535,8 @@ function getAuthErrorMessage(error) {
         'auth/popup-blocked': 'The sign-in popup was blocked. Allow popups or try again.',
         'auth/popup-closed-by-user': 'The Google sign-in window was closed before completion.',
         'auth/configuration-not-found': 'Firebase Authentication is not fully initialized. Enable Authentication in the Firebase Console.',
-        'auth/internal-error': 'Authentication internal error. Please verify that the Email/Password sign-in provider is enabled in your Firebase Console (Authentication > Sign-in method).',
-        'auth/operation-not-allowed': 'Email/Password sign-in is disabled. Enable it in your Firebase Console (Authentication > Sign-in method).'
+        'auth/internal-error': 'Authentication internal error. Please verify that the selected provider (Google or Email/Password) is enabled and configured with a support email in your Firebase Console (Authentication > Sign-in method).',
+        'auth/operation-not-allowed': 'The selected sign-in provider is disabled. Enable it in your Firebase Console (Authentication > Sign-in method).'
     };
     return messages[code] || (error && error.message) || 'Authentication failed. Please try again.';
 }
@@ -595,7 +594,7 @@ async function initFirebase() {
         
         if (data.mode === 'firebase' && data.firebaseConfig) {
             // Initialize Firebase Compat modules
-            firebaseApp = firebase.initializeApp(data.firebaseConfig);
+            firebase.initializeApp(data.firebaseConfig);
             db = firebase.firestore();
             auth = firebase.auth();
             firebaseMode = true;
@@ -675,6 +674,7 @@ function loadLocalStateFallback() {
         try {
             state = normalizeAppState(JSON.parse(saved));
         } catch (e) {
+            console.error("Local state parsing failed:", e);
             state = createDefaultState();
         }
     }
@@ -1509,9 +1509,6 @@ function renderSmartInsights() {
 }
 
 function generatePersonalizedInsights() {
-    const insights = [];
-    const completedIds = state.completedHabits || [];
-    
     // Archetype-specific insight generation rules
     const archetypeInsights = {
         commuter: [
@@ -2604,3 +2601,35 @@ function adminAddChallenge() {
     updateChallengesUI();
     showToast(`Custom challenge: "${title}" is now active!`);
 }
+
+// Expose public functions to window for HTML event handlers to reference.
+window.handleEmailAuth = handleEmailAuth;
+window.handleSocialAuth = handleSocialAuth;
+window.logoutUser = logoutUser;
+window.toggleTheme = toggleTheme;
+window.prevStep = prevStep;
+window.selectArchetype = selectArchetype;
+window.legacyLookupZip = legacyLookupZip;
+window.finishOnboarding = finishOnboarding;
+window.switchTab = switchTab;
+window.refreshDailyHabits = refreshDailyHabits;
+window.toggleHabit = toggleHabit;
+window.toggleExplainer = toggleExplainer;
+window.changeArchetype = changeArchetype;
+window.enrollInChallenge = enrollInChallenge;
+window.enrollInCustomChallenge = enrollInCustomChallenge;
+window.toggleRewardsDrawer = toggleRewardsDrawer;
+window.switchDrawerTab = switchDrawerTab;
+window.redeemPerk = redeemPerk;
+window.updateProfileName = updateProfileName;
+window.toggleConsent = toggleConsent;
+window.updateProfilePreferences = updateProfilePreferences;
+window.resetProfile = resetProfile;
+window.showAddActionModal = showAddActionModal;
+window.submitLoggedAction = submitLoggedAction;
+window.runDiagnostics = runDiagnostics;
+window.adminSaveRegion = adminSaveRegion;
+window.adminDeleteRegion = adminDeleteRegion;
+window.adminAddHabit = adminAddHabit;
+window.adminAddChallenge = adminAddChallenge;
+
