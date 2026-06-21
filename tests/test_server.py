@@ -173,3 +173,28 @@ def test_static_outside_root(client, monkeypatch):
     resp = client.get("/index.html")
     assert resp.status_code == 404
 
+
+def test_gzip_compression(client):
+    """Verify that gzip compression is applied to text/html/js responses when requested."""
+    headers = {"Accept-Encoding": "gzip"}
+    resp = client.get("/", headers=headers)
+    assert resp.status_code == 200
+    assert resp.headers.get("Content-Encoding") == "gzip"
+    assert "Accept-Encoding" in resp.headers.get("Vary", "")
+
+    resp = client.get("/")
+    assert resp.status_code == 200
+    assert "Content-Encoding" not in resp.headers
+
+
+def test_cache_control_headers(client):
+    """Verify that Cache-Control headers are set correctly for static and dynamic assets."""
+    resp = client.get("/style.css")
+    assert resp.status_code == 200
+    assert "public, max-age=31536000" in resp.headers.get("Cache-Control", "")
+
+    resp = client.get("/")
+    assert resp.status_code == 200
+    assert "must-revalidate" in resp.headers.get("Cache-Control", "")
+
+

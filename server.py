@@ -7,6 +7,8 @@ allow-list so the static directory cannot leak secrets or escape its root.
 """
 from __future__ import annotations
 
+import gzip
+import io
 import logging
 import mimetypes
 import os
@@ -123,6 +125,57 @@ def create_app() -> Flask:
         )
         resp.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin")
         resp.headers.setdefault("Cross-Origin-Resource-Policy", "same-origin")
+        return resp
+
+    @flask_app.after_request
+    def _cache_control(resp: Response) -> Response:
+        path = request.path
+        if path.endswith(".css") or path.endswith(".js") or path.endswith(".ico") or path.endswith(".webmanifest"):
+            resp.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        elif path == "/" or path.endswith(".html"):
+            resp.headers["Cache-Control"] = "public, max-age=0, must-revalidate"
+        return resp
+
+    @flask_app.after_request
+    def _compress_response(resp: Response) -> Response:
+        accept_encoding = request.headers.get("Accept-Encoding", "")
+        if "gzip" not in accept_encoding.lower():
+            return resp
+
+        content_type = resp.headers.get("Content-Type", "")
+        is_compressible = (
+            "text/html" in content_type or
+            "text/css" in content_type or
+            "application/javascript" in content_type or
+            "application/json" in content_type or
+            "text/plain" in content_type
+        )
+        if not is_compressible:
+            return resp
+
+        if "Content-Encoding" in resp.headers:
+            return resp
+
+        if resp.direct_passthrough:
+            resp.direct_passthrough = False
+
+        data = resp.get_data()
+        if len(data) < 500:
+            return resp
+
+        gzip_buffer = io.BytesIO()
+        with gzip.GzipFile(mode="wb", compresslevel=6, fileobj=gzip_buffer) as gzip_file:
+            gzip_file.write(data)
+
+        compressed_data = gzip_buffer.getvalue()
+        resp.set_data(compressed_data)
+        resp.headers["Content-Encoding"] = "gzip"
+        resp.headers["Content-Length"] = str(len(compressed_data))
+        
+        vary = resp.headers.get("Vary", "")
+        if "Accept-Encoding" not in vary:
+            resp.headers["Vary"] = f"{vary}, Accept-Encoding".strip(", ")
+            
         return resp
 
     @flask_app.errorhandler(404)
